@@ -1,9 +1,9 @@
-import { Todo } from '../classes';
-import { todoList } from '../index';
+import { Todo } from "../classes";
+import { todoList } from "../index";
 
 //Referencia en el HTML
-const divTodoList = document.querySelector('.todo-list');
-const txtInput = document.querySelector('.new-todo');
+const divTodoList = document.querySelector(".todo-list");
+const txtInput = document.querySelector(".new-todo");
 
 export const crearTodoHtml = (todo) => {
   const htmlTodo = `
@@ -17,7 +17,7 @@ export const crearTodoHtml = (todo) => {
 					</li> 
     `;
 
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.innerHTML = htmlTodo;
 
   divTodoList.append(div.firstElementChild);
@@ -25,12 +25,23 @@ export const crearTodoHtml = (todo) => {
 };
 
 //Eventos
-txtInput.addEventListener('keyup', (event)=>{
-  if(event.keyCode === 13 && txtInput.value.length > 0){
+txtInput.addEventListener("keyup", (event) => {
+  if (event.keyCode === 13 && txtInput.value.length > 0) {
     console.log(txtInput.value);
     const nuevoTodo = new Todo(txtInput.value);
     todoList.nuevoTodo(nuevoTodo);
 
     crearTodoHtml(nuevoTodo);
+  }
+});
+
+divTodoList.addEventListener("click", (event) => {
+  const nombreElemento = event.target.localName; // input, label, button
+  const todoElemento = event.target.parentElement.parentElement;
+  const todoId = todoElemento.getAttribute('data-id');
+
+  if( nombreElemento.include('input')){ //click en el check
+    todoList.marcarCompletado(todoId);
+    todoElemento.classList.toggle('completed');
   }
 });
