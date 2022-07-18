@@ -6,7 +6,7 @@ export class TodoList {
     this.todos.push(todo);
   }
   eliminarTodo(id) {
-    this.todos = this.todos.filter(todo => todo.id != id)
+    this.todos = this.todos.filter((todo) => todo.id != id);
   }
   marcarCompletado(id) {
     for (const todo of this.todos) {
@@ -16,5 +16,7 @@ export class TodoList {
       }
     }
   }
-  eliminarCompletados() {}
+  eliminarCompletados() {
+    this.todos = this.todos.filter((todo) => !todo.completado);
+  }
 }
